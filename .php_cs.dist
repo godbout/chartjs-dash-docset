@@ -20,7 +20,6 @@ return PhpCsFixer\Config::create()
         'no_unused_imports' => true,
         'no_useless_else' => true,
         'ordered_imports' => ['sortAlgorithm' => 'alpha'],
-        'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_order' => true,
         'single_blank_line_before_namespace' => true,
         'whitespace_after_comma_in_array' => true,
