@@ -79,13 +79,15 @@ class Chartjs extends BaseDocset
         $entries = collect();
 
         if (Str::contains($file, "{$this->url()}/docs/latest/index.html")) {
-            $crawler->filter('.summary a')->each(function (HtmlPageCrawler $node) use ($entries) {
-                $entries->push([
-                    'name' => $node->text(),
-                    'type' => 'Guide',
-                    'path' => $this->url() . '/docs/latest/' . $this->cleanUrl($node->attr('href')),
-                ]);
-            });
+            $crawler
+                ->filter('.summary > li.chapter:not(:first-child) a')
+                ->each(function (HtmlPageCrawler $node) use ($entries) {
+                    $entries->push([
+                        'name' => $node->text(),
+                        'type' => 'Guide',
+                        'path' => $this->url() . '/docs/latest/' . $this->cleanUrl($node->attr('href')),
+                    ]);
+                });
         }
 
         return $entries;
