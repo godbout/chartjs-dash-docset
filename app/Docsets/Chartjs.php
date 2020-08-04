@@ -126,6 +126,7 @@ class Chartjs extends BaseDocset
         $this->removeMenuAndSharingButtons($crawler);
         $this->removeNavigation($crawler);
         $this->makeContentFullWidth($crawler);
+        $this->removeSearchResults($crawler);
 
         $this->removeUnwantedCSS($crawler);
         $this->removeUnwantedJavaScript($crawler);
@@ -157,6 +158,11 @@ class Chartjs extends BaseDocset
         $crawler->filter('.book-body')->setStyle('left', '0px !important');
     }
 
+    protected function removeSearchResults(HtmlPageCrawler $crawler)
+    {
+        $crawler->filter('.search-results')->remove();
+    }
+
     protected function removeUnwantedCSS(HtmlPageCrawler $crawler)
     {
         $crawler->filter('link[href*="search.css"]')->remove();
@@ -164,8 +170,7 @@ class Chartjs extends BaseDocset
 
     protected function removeUnwantedJavaScript(HtmlPageCrawler $crawler)
     {
-        $crawler->filter('script[src*=analytics]')->remove();
-        $crawler->filter('script[src*=search\.js]')->remove();
+        $crawler->filter('script[src*="search.js"]')->remove();
     }
 
     protected function insertDashTableOfContents(HtmlPageCrawler $crawler)
