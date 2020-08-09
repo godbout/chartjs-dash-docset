@@ -14,7 +14,7 @@ class Chartjs extends BaseDocset
     public const NAME = 'Chart.js';
     public const URL = 'www.chartjs.org';
     public const INDEX = 'docs/latest/index.html';
-    public const PLAYGROUND = 'https://codepen.io/lucusc/pen/pgQRdd';
+    public const PLAYGROUND = 'https://www.chartjs.org/samples/latest/';
     public const ICON_16 = '../../icons/icon.png';
     public const ICON_32 = '../../icons/icon@2x.png';
     public const EXTERNAL_DOMAINS = [
