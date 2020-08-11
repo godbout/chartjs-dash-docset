@@ -25,7 +25,7 @@ jobs:
         run: composer update --${{ matrix.dependency-version }}
 
       - name: run tests
-        run: composer test --coverage-clover=coverage.clover
+        run: composer test -- --coverage-clover=coverage.clover
 
       - name: upload code coverage
         run: |
