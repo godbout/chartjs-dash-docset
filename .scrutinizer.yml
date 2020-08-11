@@ -10,5 +10,4 @@ filter:
 
 tools:
   external_code_coverage:
-    runs: 18
-    timeout: 1000
+    runs: 16
