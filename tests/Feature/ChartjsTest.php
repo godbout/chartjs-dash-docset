@@ -126,6 +126,30 @@ class ChartjsTest extends TestCase
     }
 
     /** @test */
+    public function the_package_version_badges_get_removed_from_the_dash_docset_files()
+    {
+        $npmBadge = 'https://img.shields.io/npm/v';
+
+        $this->assertStringContainsString(
+            $npmBadge,
+            Storage::get(
+                $this->docset->downloadedDirectory()
+                . '/' . $this->docset->url()
+                . '/docs/latest/getting-started/installation.html'
+            )
+        );
+
+        $this->assertStringNotContainsString(
+            $npmBadge,
+            Storage::get(
+                $this->docset->innerDirectory()
+                . '/' . $this->docset->url()
+                . '/docs/latest/getting-started/installation.html'
+            )
+        );
+    }
+
+    /** @test */
     public function it_inserts_dash_anchors_in_the_doc_files()
     {
         $this->assertStringContainsString(

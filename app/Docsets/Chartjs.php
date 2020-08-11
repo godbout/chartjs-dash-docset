@@ -128,6 +128,8 @@ class Chartjs extends BaseDocset
         $this->makeContentFullWidth($crawler);
         $this->removeSearchResults($crawler);
 
+        $this->removePackageVersionBadges($crawler);
+
         $this->removeUnwantedCSS($crawler);
         $this->removeUnwantedJavaScript($crawler);
 
@@ -161,6 +163,15 @@ class Chartjs extends BaseDocset
     protected function removeSearchResults(HtmlPageCrawler $crawler)
     {
         $crawler->filter('.search-results')->remove();
+    }
+
+    protected function removePackageVersionBadges(HtmlPageCrawler $crawler)
+    {
+        $crawler
+            ->filter('p > a:first-child > img')
+            ->each(function ($node) {
+                $node->closest('a')->remove();
+            });
     }
 
     protected function removeUnwantedCSS(HtmlPageCrawler $crawler)
