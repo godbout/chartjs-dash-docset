@@ -124,7 +124,7 @@ class Chartjs extends BaseDocset
 
         $this->removeLeftSidebar($crawler);
         $this->removeMenuAndSharingButtons($crawler);
-        $this->removeNavigation($crawler);
+        $this->removeNavigationFromKeyboard($crawler);
         $this->makeContentFullWidth($crawler);
         $this->removeSearchResults($crawler);
 
@@ -150,9 +150,17 @@ class Chartjs extends BaseDocset
         );
     }
 
-    protected function removeNavigation(HtmlPageCrawler $crawler)
+    protected function removeNavigationFromKeyboard(HtmlPageCrawler $crawler)
     {
-        $crawler->filter('.navigation')->remove();
+        $crawler->filter('.navigation-prev')
+            ->removeClass('navigation-prev')
+            ->setStyle('left', '0')
+        ;
+
+        $crawler->filter('.navigation-next')
+            ->removeClass('navigation-next')
+            ->setStyle('right', '0')
+        ;
     }
 
     protected function makeContentFullWidth(HtmlPageCrawler $crawler)

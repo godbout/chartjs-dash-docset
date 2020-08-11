@@ -75,9 +75,9 @@ class ChartjsTest extends TestCase
     }
 
     /** @test */
-    public function the_navigation_gets_removed_from_the_dash_docset_files()
+    public function the_navigation_from_the_keyboard_gets_inactivated_in_the_dash_docset_files()
     {
-        $navigation = 'navigation navigation';
+        $navigation = 'navigation-next';
 
         $this->assertStringContainsString(
             $navigation,
