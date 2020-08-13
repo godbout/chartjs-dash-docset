@@ -85,7 +85,7 @@ class Chartjs extends BaseDocset
                     $entries->push([
                         'name' => $node->text(),
                         'type' => 'Guide',
-                        'path' => $this->url() . '/docs/latest/' . $this->cleanUrl($node->attr('href')),
+                        'path' => $this->url() . '/docs/latest/' . $this->cleanURL($node->attr('href')),
                     ]);
                 });
         }
@@ -113,7 +113,7 @@ class Chartjs extends BaseDocset
      * the download is finished. no idea why, but this cleans
      * the few that fail.
      */
-    protected function cleanUrl($url)
+    protected function cleanURL($url)
     {
         return Str::after($url, 'https://www.chartjs.org/docs/latest/');
     }
@@ -124,7 +124,8 @@ class Chartjs extends BaseDocset
 
         $this->removeLeftSidebar($crawler);
         $this->removeMenuAndSharingButtons($crawler);
-        $this->removeNavigation($crawler);
+        $this->removeNavigationFromKeyboard($crawler);
+        $this->fixNavigationLinks($crawler);
         $this->makeContentFullWidth($crawler);
         $this->removeSearchResults($crawler);
 
@@ -150,9 +151,29 @@ class Chartjs extends BaseDocset
         );
     }
 
-    protected function removeNavigation(HtmlPageCrawler $crawler)
+    protected function removeNavigationFromKeyboard(HtmlPageCrawler $crawler)
     {
-        $crawler->filter('.navigation')->remove();
+        $crawler->filter('.navigation-prev')
+            ->removeClass('navigation-prev')
+            ->setStyle('left', '0')
+        ;
+
+        $crawler->filter('.navigation-next')
+            ->removeClass('navigation-next')
+            ->setStyle('right', '0')
+        ;
+    }
+
+    protected function fixNavigationLinks(HtmlPageCrawler $crawler)
+    {
+        $crawler
+            ->filter('.navigation')
+            ->each(function ($node) {
+                if (Str::contains($node->attr('href'), 'chartjs.org')) {
+                    $node->setAttribute('href', basename($node->attr('href')));
+                }
+            })
+        ;
     }
 
     protected function makeContentFullWidth(HtmlPageCrawler $crawler)
@@ -191,7 +212,11 @@ class Chartjs extends BaseDocset
 
         $crawler->filter('h2, h3')->each(static function (HtmlPageCrawler $node) {
             $node->before(
-                '<a id="' . Str::slug($node->text()) . '" name="//apple_ref/cpp/Section/' . rawurlencode($node->text()) . '" class="dashAnchor"></a>'
+                '<a id="'
+                . Str::slug($node->text())
+                . '" name="//apple_ref/cpp/Section/'
+                . rawurlencode($node->text())
+                . '" class="dashAnchor"></a>'
             );
         });
     }
