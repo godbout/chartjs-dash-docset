@@ -91,6 +91,30 @@ class ChartjsTest extends TestCase
     }
 
     /** @test */
+    public function the_navigation_links_get_fixed_in_the_dash_docset_files()
+    {
+        $wrongNavigationLink = 'https://www.chartjs.org/docs/latest/configuration/elements.html';
+
+        $this->assertStringContainsString(
+            $wrongNavigationLink,
+            Storage::get(
+                $this->docset->downloadedDirectory()
+                . '/' . $this->docset->url()
+                . '/docs/latest/configuration/elements.html'
+            )
+        );
+
+        $this->assertStringNotContainsString(
+            $wrongNavigationLink,
+            Storage::get(
+                $this->docset->innerDirectory()
+                . '/' . $this->docset->url()
+                . '/docs/latest/configuration/elements.html'
+            )
+        );
+    }
+
+    /** @test */
     public function the_content_is_being_made_full_width()
     {
         $crawler = HtmlPageCrawler::create(

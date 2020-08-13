@@ -125,6 +125,7 @@ class Chartjs extends BaseDocset
         $this->removeLeftSidebar($crawler);
         $this->removeMenuAndSharingButtons($crawler);
         $this->removeNavigationFromKeyboard($crawler);
+        $this->fixNavigationLinks($crawler);
         $this->makeContentFullWidth($crawler);
         $this->removeSearchResults($crawler);
 
@@ -160,6 +161,18 @@ class Chartjs extends BaseDocset
         $crawler->filter('.navigation-next')
             ->removeClass('navigation-next')
             ->setStyle('right', '0')
+        ;
+    }
+
+    protected function fixNavigationLinks(HtmlPageCrawler $crawler)
+    {
+        $crawler
+            ->filter('.navigation')
+            ->each(function ($node) {
+                if (Str::contains($node->attr('href'), 'chartjs.org')) {
+                    $node->setAttribute('href', basename($node->attr('href')));
+                }
+            })
         ;
     }
 
@@ -199,7 +212,11 @@ class Chartjs extends BaseDocset
 
         $crawler->filter('h2, h3')->each(static function (HtmlPageCrawler $node) {
             $node->before(
-                '<a id="' . Str::slug($node->text()) . '" name="//apple_ref/cpp/Section/' . rawurlencode($node->text()) . '" class="dashAnchor"></a>'
+                '<a id="'
+                . Str::slug($node->text())
+                . '" name="//apple_ref/cpp/Section/'
+                . rawurlencode($node->text())
+                . '" class="dashAnchor"></a>'
             );
         });
     }
