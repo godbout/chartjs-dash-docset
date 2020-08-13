@@ -85,7 +85,7 @@ class Chartjs extends BaseDocset
                     $entries->push([
                         'name' => $node->text(),
                         'type' => 'Guide',
-                        'path' => $this->url() . '/docs/latest/' . $this->cleanUrl($node->attr('href')),
+                        'path' => $this->url() . '/docs/latest/' . $this->cleanURL($node->attr('href')),
                     ]);
                 });
         }
@@ -113,7 +113,7 @@ class Chartjs extends BaseDocset
      * the download is finished. no idea why, but this cleans
      * the few that fail.
      */
-    protected function cleanUrl($url)
+    protected function cleanURL($url)
     {
         return Str::after($url, 'https://www.chartjs.org/docs/latest/');
     }
