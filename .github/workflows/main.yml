@@ -28,7 +28,7 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: xdebug
 
-      - name: go some magic Composer cache
+      - name: do some magic Composer cache
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
       - uses: actions/cache@v2
