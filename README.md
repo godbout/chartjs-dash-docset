@@ -1,7 +1,7 @@
 <h1 align="center">Chart.js Dash Docset</h1>
 
 <p align="center">
-    <a href="https://travis-ci.com/godbout/chartjs-dash-docset"><img src="https://img.shields.io/travis/com/godbout/chartjs-dash-docset/master.svg?style=flat-square" alt="Build Status"></a>
+    <a href="https://github.com/godbout/chartjs-dash-docset/actions"><img src="https://img.shields.io/github/workflow/status/godbout/chartjs-dash-docset/tests" alt="Build Status"></a>
     <a href="https://scrutinizer-ci.com/g/godbout/chartjs-dash-docset"><img src="https://img.shields.io/scrutinizer/g/godbout/chartjs-dash-docset.svg?style=flat-square" alt="Quality Score"></a>
     <a href="https://scrutinizer-ci.com/g/godbout/chartjs-dash-docset"><img src="https://scrutinizer-ci.com/g/godbout/chartjs-dash-docset/badges/coverage.png?b=master" alt="Code Coverage"></a>
 </p>
